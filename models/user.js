@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var schema = mongoose.schema
+var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt')
 
 var userSchema = new Schema({
@@ -10,12 +10,12 @@ var userSchema = new Schema({
     },
     password:{
         type:String,
-        requiretrue,
+        require:true,
     }
 })
 
 
-UserSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
     var user = this;
     if (this.isModified('password') || this.isNew) 
     {
