@@ -13,5 +13,6 @@ router.get('/dashboard',(req,res)=>
 })
 
 router.post('/adduser',actions.addnew);
+router.post('/authenticate',actions.authenticate);
 
 module.exports = router

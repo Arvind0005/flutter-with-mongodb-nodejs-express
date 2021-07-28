@@ -28,7 +28,41 @@ var functions ={
                 }
             })
         }
-    }   
+    },
+    authenticate: function(req,res)
+    {
+        User.findOne(
+            {
+                name:req.body.name,
+            },function(err,user)
+            {
+               // console.log(`name:${req.body.name}`)
+                console.log("error:");
+                console.log(err);
+                console.log(`user =${user}`);
+                if(err) throw err;
+                if(!user)
+                {
+                    res.status(403).send({success:"failed",msg:"Authentication Failed, User did not match"});
+                }
+                else
+                {
+                    user.comparePassword(req.body.password,function(err,ismatch)
+                    {
+                        if(ismatch && !err)
+                        {
+                            var token = jwt.encode(user,config.secret);
+                            res.json({sucess: true, token:token});
+                        }
+                        else
+                        {
+                            res.status(403).send({sucess:false,msg:"Authentication failed,wrong password."})
+                        }
+                    })
+                }
+            }
+        )
+    }
 }
 
 module.exports = functions;
