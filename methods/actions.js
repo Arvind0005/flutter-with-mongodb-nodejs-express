@@ -36,7 +36,7 @@ var functions ={
                 name:req.body.name,
             },function(err,user)
             {
-               // console.log(`name:${req.body.name}`)
+                console.log(`name:${req.body.name}`)
                 console.log("error:");
                 console.log(err);
                 console.log(`user =${user}`);
@@ -62,6 +62,20 @@ var functions ={
                 }
             }
         )
+    },
+    getinfo: function(req,res)
+    {
+        if(req.headers.authorization &&req.headers.authorization.split(' ')[0]=='Bearer')
+        {
+            var token =req.headers.authorization.split(' ')[1];
+            var decodedtoken =jwt.decode(token, config.secret);
+            return res.json({sucess:true,msg:'hello'+ decodedtoken.name});
+        
+        }
+        else
+        {
+            return res.json({sucess:false,msg:'NO Headers'});
+        }
     }
 }
 

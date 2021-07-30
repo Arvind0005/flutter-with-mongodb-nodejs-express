@@ -20,6 +20,8 @@ const PORT = process.env.PORT || 3000
 app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
-app.use(routes)
+app.use(routes);
+app.use(passport.initialize());
+require('./config/passort')(passport);
 
 app.listen(PORT,console.log('Srever running in %s mode on port %d',process.env.NODE_ENV,PORT)) 
