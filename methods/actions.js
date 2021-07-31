@@ -69,7 +69,7 @@ var functions ={
         {
             var token =req.headers.authorization.split(' ')[1];
             var decodedtoken =jwt.decode(token, config.secret);
-            return res.json({sucess:true,msg:'hello'+ decodedtoken.name});
+            return res.json({sucess:true,msg:'hello '+ decodedtoken.name});
         
         }
         else
